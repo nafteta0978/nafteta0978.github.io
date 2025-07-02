@@ -1,0 +1,459 @@
+import React, { useState } from 'react';
+
+// Main App Component
+const App = () => {
+    const [currentPage, setCurrentPage] = useState('roadmap'); // 'roadmap' or a specific phase/step ID
+
+    const navigateTo = (pageId) => {
+        setCurrentPage(pageId);
+        window.scrollTo(0, 0); // Scroll to top on navigation
+    };
+
+    const renderContent = () => {
+        switch (currentPage) {
+            case 'roadmap':
+                return <Roadmap navigateTo={navigateTo} />;
+            case 'phase1-step1':
+                return <Phase1Step1 navigateTo={navigateTo} />;
+            case 'phase1-step2':
+                return <Phase1Step2 navigateTo={navigateTo} />;
+            case 'phase1-step3':
+                return <Phase1Step3 navigateTo={navigateTo} />;
+            case 'phase2-step4':
+                return <Phase2Step4 navigateTo={navigateTo} />;
+            case 'phase2-step5':
+                return <Phase2Step5 navigateTo={navigateTo} />;
+            case 'phase3-step6':
+                return <Phase3Step6 navigateTo={navigateTo} />;
+            // Removed Phase 4 cases as per request
+            default:
+                return <Roadmap navigateTo={navigateTo} />;
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-[#C9DDFF] font-sans text-[#495867]">
+            {/* Header */}
+            <header className="bg-[#577399] text-white p-4 shadow-md">
+                <div className="container mx-auto flex justify-between items-center">
+                    <h1 className="text-3xl font-bold rounded-md text-white">H-1B Visa Workflow Protocol</h1>
+                    <button
+                        onClick={() => navigateTo('roadmap')}
+                        className="bg-[#9DD9FF] hover:bg-[#95BCFF] text-[#495867] py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+                    >
+                        Back to Roadmap
+                    </button>
+                </div>
+            </header>
+
+            {/* Main Content Area */}
+            <main className="container mx-auto p-6 mt-4 bg-white rounded-lg shadow-lg">
+                {renderContent()}
+            </main>
+
+            {/* Footer */}
+            <footer className="bg-[#495867] text-white p-4 mt-8">
+                <div className="container mx-auto text-center text-sm">
+                    &copy; {new Date().getFullYear()} HT Lee Law PC. All rights reserved.
+                </div>
+            </footer>
+        </div>
+    );
+};
+
+// Roadmap Component
+const Roadmap = ({ navigateTo }) => (
+    <div className="p-4">
+        <h2 className="text-4xl font-extrabold mb-8 text-center text-[#495867]">Workflow Roadmap</h2>
+
+        {/* Phase 1 */}
+        <div className="mb-10 p-6 bg-[#BDD5EA] rounded-lg shadow-md border-l-4 border-[#577399]">
+            <h3 className="text-2xl font-semibold mb-4 text-[#495867]">Phase 1: Initial Assessment & Document Collection</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <RoadmapCard
+                    title="Step 1: Kick-off Meeting"
+                    description="Schedule initial meeting, confirm details."
+                    onClick={() => navigateTo('phase1-step1')}
+                />
+                <RoadmapCard
+                    title="Step 2: Draft Checklist"
+                    description="Create and provide document checklist."
+                    onClick={() => navigateTo('phase1-step2')}
+                />
+                <RoadmapCard
+                    title="Step 3: File Organization"
+                    description="Organize all submitted documents."
+                    onClick={() => navigateTo('phase1-step3')}
+                />
+            </div>
+        </div>
+
+        {/* Phase 2 */}
+        <div className="mb-10 p-6 bg-[#C9DDFF] rounded-lg shadow-md border-l-4 border-[#577399]">
+            <h3 className="text-2xl font-semibold mb-4 text-[#495867]">Phase 2: Research & Drafting</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <RoadmapCard
+                    title="Step 4: Research"
+                    description="Identify ONET occupations and prevailing wages."
+                    onClick={() => navigateTo('phase2-step4')}
+                />
+                <RoadmapCard
+                    title="Step 5: Drafting"
+                    description="Prepare all necessary forms and letters."
+                    onClick={() => navigateTo('phase2-step5')}
+                />
+            </div>
+        </div>
+
+        {/* Phase 3 */}
+        <div className="mb-10 p-6 bg-[#BDD5EA] rounded-lg shadow-md border-l-4 border-[#577399]">
+            <h3 className="text-2xl font-semibold mb-4 text-[#495867]">Phase 3: Review & Submission</h3>
+            <div className="grid grid-cols-1 gap-6">
+                <RoadmapCard
+                    title="Step 6: Review & Signing"
+                    description="Internal and client review, obtain signatures."
+                    onClick={() => navigateTo('phase3-step6')}
+                />
+            </div>
+        </div>
+
+        {/* Removed Phase 4 section from Roadmap */}
+    </div>
+);
+
+// Reusable Roadmap Card Component
+const RoadmapCard = ({ title, description, onClick }) => (
+    <div
+        className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 ease-in-out cursor-pointer flex flex-col justify-between items-center text-center"
+        onClick={onClick}
+    >
+        <h4 className="text-xl font-semibold mb-2 text-[#495867]">{title}</h4>
+        <p className="text-[#577399] text-sm">{description}</p>
+        <button className="mt-4 bg-[#577399] hover:bg-[#495867] text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
+            View Details
+        </button>
+    </div>
+);
+
+// --- Phase and Step Detail Components ---
+
+const Phase1Step1 = ({ navigateTo }) => (
+    <div className="p-4">
+        <h2 className="text-3xl font-bold mb-4 text-[#577399]">Phase 1: Initial Assessment & Document Collection</h2>
+        <h3 className="text-2xl font-semibold mb-6 text-[#495867]">Step 1: Kick-off Meeting</h3>
+        <p className="mb-4 text-lg leading-relaxed text-[#495867]">
+            Before starting to work on the case, schedule a kick-off meeting with Joy and Isabelle (and any others that will work on the case), and sync information.
+        </p>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">Things to Confirm:</h4>
+        <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+            <li><strong>Degree(s):</strong> Confirm if the beneficiary will be filing under Master Cap or not, especially if they have a master’s degree.</li>
+            <li><strong>Work Experience(s):</strong> If the beneficiary’s degree doesn’t match their proposed job title, focus on work experience.</li>
+            <li><strong>Proposed Job Title, Period of Stay, and Salary:</strong> Note that salary may need adjustment after Occupation and Prevailing Wage research.</li>
+            <li><strong>Premium Processing:</strong> If needed, file Form I-907 during the drafting stages.</li>
+            <li><strong>Other Specifications:</strong>
+                <ul className="list-circle list-inside ml-4">
+                    <li>Beneficiary's current location (e.g., US, China, Taiwan).</li>
+                    <li>Past submissions or denials.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">Initial Consultation & Eligibility Assessment:</h4>
+        <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+            <li><strong>Beneficiary Qualifications (Degree):</strong>
+                <ul className="list-circle list-inside ml-4">
+                    <li>Determine if the job meets the definition of a specialty occupation (requiring a bachelor’s degree or higher in a specific field or its equivalent).</li>
+                    <li>Assess whether the beneficiary possesses the required degree or its equivalent.</li>
+                    <li>Confirm the specialty occupation classification argument.</li>
+                </ul>
+            </li>
+            <li><strong>Position (Job Duties) provided by employer:</strong> Review the beneficiary’s qualifications against the job requirements.</li>
+            <li><strong>Salary:</strong> Discuss the H-1B cap, lottery process, and prevailing wage requirements.</li>
+            <li><strong>Premium Processing:</strong> Advise on premium processing for faster adjudication.</li>
+            <li>Discuss any potential red flags (e.g., insufficient degree, vague job duties, entry-level positions, potential wage issues).</li>
+            <li>Plan for Labor Condition Application (LCA) posting requirements.</li>
+        </ul>
+        <button
+            onClick={() => navigateTo('phase1-step2')}
+            className="mt-6 bg-[#577399] hover:bg-[#495867] text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+        >
+            Next: Step 2 - Draft Checklist
+        </button>
+    </div>
+);
+
+const Phase1Step2 = ({ navigateTo }) => (
+    <div className="p-4">
+        <h2 className="text-3xl font-bold mb-4 text-[#577399]">Phase 1: Initial Assessment & Document Collection</h2>
+        <h3 className="text-2xl font-semibold mb-6 text-[#495867]">Step 2: Draft Checklist</h3>
+        <p className="mb-4 text-lg leading-relaxed text-[#495867]">
+            If the beneficiary or the company are still missing documents, list them into a checklist and provide it to the beneficiary/company HR. You can reference past cases’ checklists and the USCIS website for guidance: <a href="https://www.uscis.gov/working-in-the-united-states/h-1b-specialty-occupations" target="_blank" rel="noopener noreferrer" className="text-[#577399] hover:underline">https://www.uscis.gov/working-in-the-united-states/h-1b-specialty-occupations</a>.
+        </p>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">Document Checklists:</h4>
+        <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+            <li><strong>Employer Documents:</strong>
+                <ul className="list-circle list-inside ml-4">
+                    <li>Company details, financials, job offer letter, detailed job description, organizational chart, lease agreement, and payroll records (W2, DE 9, DE 9C)</li>
+                    <li>Confirm number of current employees</li>
+                    <li>Request a list of job titles, start working date, current wage, and place of proposed employment</li>
+                </ul>
+            </li>
+            <li><strong>Beneficiary Documents:</strong>
+                <ul className="list-circle list-inside ml-4">
+                    <li>Passport, resume/CV, academic documents like degrees and transcripts, visa documentation (if any), US address (if any), foreign addresses (if any), and SSN (if any)</li>
+                    <li><strong>Foreign Degree Evaluation:</strong> If education was outside the U.S., obtain a credential evaluation report from a USCIS-recognized service proving equivalency to a U.S. degree.</li>
+                    <li><strong>Professional licenses:</strong> If required for the occupation in a specific state, include evidence of the license.</li>
+                    <li><strong>Employment Verification Letters:</strong> Collect letters from previous employers.</li>
+                </ul>
+            </li>
+            <li><strong>Instructions on Translations:</strong>
+                <ul className="list-circle list-inside ml-4">
+                    <li>Advise on certified English translations for any foreign language documents.</li>
+                    <li>In most cases, we will translate Chinese documents to English ourselves.</li>
+                </ul>
+            </li>
+        </ul>
+        <div className="flex justify-between mt-6">
+            <button
+                onClick={() => navigateTo('phase1-step1')}
+                className="bg-[#9DD9FF] hover:bg-[#95BCFF] text-[#495867] py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+                Previous: Step 1 - Kick-off Meeting
+            </button>
+            <button
+                onClick={() => navigateTo('phase1-step3')}
+                className="bg-[#577399] hover:bg-[#495867] text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+                Next: Step 3 - File Organization
+            </button>
+        </div>
+    </div>
+);
+
+const Phase1Step3 = ({ navigateTo }) => (
+    <div className="p-4">
+        <h2 className="text-3xl font-bold mb-4 text-[#577399]">Phase 1: Initial Assessment & Document Collection</h2>
+        <h3 className="text-2xl font-semibold mb-6 text-[#495867]">Step 3: File Organization</h3>
+        <p className="mb-4 text-lg leading-relaxed text-[#495867]">
+            Review all submitted documents and organize them into sub-folders within the beneficiary’s folder. The beneficiary’s folder will be located under a master folder "Beneficiary". Company-related documents should be organized into the "Company Info" folder.
+        </p>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">Update Checklist:</h4>
+        <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+            <li>Cross out received documents and highlight the ones that are still missing.</li>
+            <li>Add additional documents that are needed, if any.</li>
+        </ul>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">Required Sub-folders:</h4>
+        <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+            <li><strong>Client Info:</strong> This will contain all files from the beneficiary, including previous petitions (if any), travel documents, diplomas, transcripts, resume, position-related information, financial information, spouse and children information (if any), etc.</li>
+            <li><strong>Case folder (named as matter):</strong>
+                <ul className="list-circle list-inside ml-4">
+                    <li>0 Bill and Payment</li>
+                    <li>1 CQ: All documents received for this case will be saved here, under folders of the dates received. Documents are ordered by the law to be kept for five years.</li>
+                    <li>2 Checklist</li>
+                    <li>3 Prepared Docs:
+                        <ul className="list-square list-inside ml-4">
+                            <li>Exhibits: Supporting documents for the case.</li>
+                            <li>Forms: Form I-129, Form G-28, and Form I-907 (if needed).</li>
+                            <li>Petition: Petition Letter, Support Letter, Table of Contents, Office Posting, and Summary of Terms.</li>
+                        </ul>
+                    </li>
+                    <li>4 Scanned Docs:
+                        <ul className="list-square list-inside ml-4">
+                            <li>From LCA</li>
+                            <li>To and From Client</li>
+                            <li>To and From USCIS</li>
+                        </ul>
+                    </li>
+                    <li>5 Research</li>
+                </ul>
+            </li>
+        </ul>
+        <div className="flex justify-between mt-6">
+            <button
+                onClick={() => navigateTo('phase1-step2')}
+                className="bg-[#9DD9FF] hover:bg-[#95BCFF] text-[#495867] py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+                Previous: Step 2 - Draft Checklist
+            </button>
+            <button
+                onClick={() => navigateTo('phase2-step4')}
+                className="bg-[#577399] hover:bg-[#495867] text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+                Next: Step 4 - Research
+            </button>
+        </div>
+    </div>
+);
+
+const Phase2Step4 = ({ navigateTo }) => (
+    <div className="p-4">
+        <h2 className="text-3xl font-bold mb-4 text-[#577399]">Phase 2: Research & Drafting</h2>
+        <h3 className="text-2xl font-semibold mb-6 text-[#495867]">Step 4: Research</h3>
+        <p className="mb-4 text-lg leading-relaxed text-[#495867]">
+            List 3-5 ONET occupations and their Prevailing Wages after confirming the beneficiary’s internal title. If there are other issues to be researched for this specific case, please also record your findings and upload them to the Research folder.
+        </p>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">ONET Occupation:</h4>
+        <p className="mb-4 text-[#495867]">
+            <a href="https://www.onetonline.org/" target="_blank" rel="noopener noreferrer" className="text-[#577399] hover:underline">https://www.onetonline.org/</a>
+        </p>
+        <p className="mb-6 text-[#495867]">
+            <strong>Advice:</strong> Search the beneficiary’s internal title and see if it is also an ONET occupation. If not, it is highly probable for similar occupations to pop up in the search.
+        </p>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">Prevailing Wage:</h4>
+        <p className="mb-4 text-[#495867]">
+            <a href="https://flag.dol.gov/wage-data/wage-search" target="_blank" rel="noopener noreferrer" className="text-[#577399] hover:underline">https://flag.dol.gov/wage-data/wage-search</a>
+        </p>
+        <p className="mb-6 text-[#495867]">
+            When using the Prevailing Wage tool, remember to:
+        </p>
+        <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+            <li>Select the newest range for Data Series (e.g., 7/2022 - 6/2023).</li>
+            <li>Select "All Industries" for Collection.</li>
+            <li>Enter the ONET title or code.</li>
+            <li>Select "CALIFORNIA" for State/Territory.</li>
+            <li>Select "County/ Township" for Area Type.</li>
+            <li>Select the company's area for the USPS Zip Code Lookup.</li>
+        </ul>
+        <div className="flex justify-between mt-6">
+            <button
+                onClick={() => navigateTo('phase1-step3')}
+                className="bg-[#9DD9FF] hover:bg-[#95BCFF] text-[#495867] py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+                Previous: Step 3 - File Organization
+            </button>
+            <button
+                onClick={() => navigateTo('phase2-step5')}
+                className="bg-[#577399] hover:bg-[#495867] text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+                Next: Step 5 - Drafting
+            </button>
+        </div>
+    </div>
+);
+
+const Phase2Step5 = ({ navigateTo }) => {
+    // Removed all state and functions related to Gemini API integration
+    return (
+        <div className="p-4">
+            <h2 className="text-3xl font-bold mb-4 text-[#577399]">Phase 2: Research & Drafting</h2>
+            <h3 className="text-2xl font-semibold mb-6 text-[#495867]">Step 5: Drafting</h3>
+            <p className="mb-4 text-lg leading-relaxed text-[#495867]">
+                Feel free to use past petitions as reference, but take extra care in ensuring the details are correct (ex: beneficiary’s name, use of Mr./Ms., job title, salary, LCA number, education, etc.).
+            </p>
+
+            <h4 className="text-xl font-semibold mb-3 text-[#495867]">Draft Forms Online:</h4>
+            <p className="mb-4 text-[#495867]">
+                <a href="https://myaccount.uscis.gov/sign-in" target="_blank" rel="noopener noreferrer" className="text-[#577399] hover:underline">https://myaccount.uscis.gov/sign-in</a>
+            </p>
+            <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+                <li>Form I-129 (Instructions)</li>
+                <li>Form G-28 (Instructions)</li>
+                <li>Form I-907, if needed (Instructions)</li>
+                <li>Please see the most recent Financial Statement or Tax Return for revenue information, NOT just copying from a past petition.</li>
+            </ul>
+
+            <h4 className="text-xl font-semibold mb-3 text-[#495867]">Draft Job Duties:</h4>
+            <p className="mb-6 text-[#495867]">
+                The company or beneficiary may provide the job duties. If so, please review and make sure it matches the ONET occupation’s requirements and expertise.
+            </p>
+
+            <h4 className="text-xl font-semibold mb-3 text-[#495867]">Draft Office Posting:</h4>
+            <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+                <li>This should be written from the company’s perspective, looking for a new hire in the proposed position. Company letterhead needed.</li>
+                <li>It should at least include company description, job description, duties & responsibilities, required education and experience.</li>
+                <li>If the company provides it for us, please review and make sure the job duties are the same as drafted and the requirements are quantifiable traits.</li>
+            </ul>
+
+            <h4 className="text-xl font-semibold mb-3 text-[#495867]">Draft Table of Contents & Organize Exhibits:</h4>
+            <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+                <li>Feel free to work in the order of your own habit. Personally, I prefer drafting the table of contents first, and then organizing the exhibits accordingly.</li>
+                <li>Please refer to the checklist as well, and ensure all documents have been provided.</li>
+                <li>Analyze the order of the documents at this stage, and organize as you deem most logical.</li>
+            </ul>
+
+            <h4 className="text-xl font-semibold mb-3 text-[#495867]">Draft Summary of Terms:</h4>
+            <p className="mb-6 text-[#495867]">
+                This should be written from the company’s perspective, detailing the beneficiary’s time and place of work, and their salary. Company letterhead needed.
+            </p>
+
+            <h4 className="text-xl font-semibold mb-3 text-[#495867]">Draft Support Letter:</h4>
+            <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+                <li>This should be written from the company’s perspective, summarizing the company, the position, the beneficiary’s qualifications, and the terms of employment. Company letterhead needed.</li>
+                <li>About the position: please include job duties.</li>
+                <li>The beneficiary’s qualifications: please include a chart highlighting the courses they took to prepare them for their job duties.</li>
+            </ul>
+
+            <h4 className="text-xl font-semibold mb-3 text-[#495867]">Draft Petition Letter:</h4>
+            <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+                <li>This should be written from the firm’s perspective, going into detailed analysis of the beneficiary’s qualifications for this job. Law firm letterhead needed.</li>
+                <li>Recommended to include a chart comparing the job duties of the beneficiary’s ONET occupation and their internal position, connecting the two titles as similar.</li>
+                <li>Please go over the USCIS Memo and aim to use similar wording and structure.</li>
+            </ul>
+
+            <div className="flex justify-between mt-6">
+                <button
+                    onClick={() => navigateTo('phase2-step4')}
+                    className="bg-[#9DD9FF] hover:bg-[#95BCFF] text-[#495867] py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+                >
+                    Previous: Step 4 - Research
+                </button>
+                <button
+                    onClick={() => navigateTo('phase3-step6')}
+                    className="bg-[#577399] hover:bg-[#495867] text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+                >
+                    Next: Step 6 - Review & Signing
+                </button>
+            </div>
+        </div>
+    );
+};
+
+const Phase3Step6 = ({ navigateTo }) => (
+    <div className="p-4">
+        <h2 className="text-3xl font-bold mb-4 text-[#577399]">Phase 3: Review & Submission</h2>
+        <h3 className="text-2xl font-semibold mb-6 text-[#495867]">Step 6: Review & Signing</h3>
+        <p className="mb-4 text-lg leading-relaxed text-[#495867]">
+            After finishing drafting, please email Isabelle and others associated with this case, and request a review. Continue this process of updating and reviewing until the final draft is complete, and send them to the client for signature.
+        </p>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">Review Process:</h4>
+        <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+            <li><strong>Initial Review:</strong> If there are others aside from the case lead working on this case, please have them do an initial review first. If not, please send directly to Isabelle or the case lead for review.</li>
+            <li><strong>Case Lead Review:</strong> After the initial review and updates, please send to the case lead for review.</li>
+            <li><strong>Final Review:</strong> After the case lead approves of the draft, send to Isabelle for final review before starting to finalize and submit.</li>
+        </ul>
+
+        <h4 className="text-xl font-semibold mb-3 text-[#495867]">Signature:</h4>
+        <ul className="list-disc list-inside space-y-2 mb-6 text-[#495867]">
+            <li><strong>Forms:</strong> Since we use online filing for H-1B cases, upload all documents and ensure all information is correct before sending them to the client for review and signing.</li>
+            <li>Summary of Terms – signed by client</li>
+            <li>Support Letter – signed by client</li>
+            <li>Petition Letter – signed by attorney (mostly Isabelle)</li>
+            <li><strong>Case Submission:</strong> Isabelle will submit the petitions and upload relevant files to the Scanned Docs folder.</li>
+        </ul>
+        <div className="flex justify-between mt-6">
+            <button
+                onClick={() => navigateTo('phase2-step5')}
+                className="bg-[#9DD9FF] hover:bg-[#95BCFF] text-[#495867] py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+                Previous: Step 5 - Drafting
+            </button>
+            <button
+                onClick={() => navigateTo('roadmap')} // Navigating back to roadmap after Phase 3
+                className="bg-[#577399] hover:bg-[#495867] text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+                Back to Roadmap
+            </button>
+        </div>
+    </div>
+);
+
+// Removed Phase 4 components (Phase4Selection, Phase4Lottery, Phase4FollowUp)
+
+export default App;
